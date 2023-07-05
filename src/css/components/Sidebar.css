@@ -1,0 +1,70 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    /* position: fixed; */
+    padding: 10px;
+    background: #fff;
+    /* background: #111e88; */
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .logo {
+    margin-bottom: 10px;
+    text-align: center;
+    /* border: 1px solid red; */
+}
+
+.sidebar .uploads {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0px 30px;
+}
+
+.sidebar .plus {
+    margin-right: 10px;
+    margin-top: 3px;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.sidebar .folder,
+.file {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    width: 200px;
+    padding: 2px 0px 2px 20px;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .single-menu {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 200px;
+    padding: 5px 10px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.sidebar .single-menu:hover {
+    border-radius: 15px;
+    background-color: aliceblue;
+}
+
+.sidebar .route {
+    margin-left: 10px;
+    color: black;
+}

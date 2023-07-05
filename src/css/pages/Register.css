@@ -1,0 +1,340 @@
+.register {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+.otp-main {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+.background {
+    height: auto;
+    padding: 2% 0 0;
+}
+
+.regist {
+    width: 30%;
+    margin: 0 auto 0 auto;
+    padding: 2rem;
+    background-color: white;
+    text-transform: capitalize;
+    border: rgb(204, 203, 203) 1px solid;
+    border-radius: 4px;
+}
+
+.regist-col {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4%;
+}
+
+.regist-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+    /* border: 1px solid black; */
+}
+
+/* .terms {
+    margin-top: 10px;
+} */
+
+.regist-label {
+    font-size: 80%;
+    font-weight: 600;
+    margin-bottom: 3%;
+    /* word-spacing: ; */
+}
+
+.regist-input {
+    font-size: 80%;
+    color: rgb(82, 81, 81);
+    border: rgb(165, 164, 164) 1px solid;
+    border-radius: 5px;
+    outline: rgb(165, 164, 164);
+    padding: 2% 0 2% 2%;
+}
+
+.radio-button {
+    width: 10%;
+    height: 1.2rem;
+    border: rgb(156, 156, 156) 1px thin;
+    border-radius: 10px;
+    accent-color: rgb(113, 65, 160);
+}
+
+.terms {
+    padding-top: 10px;
+}
+
+.regist-button {
+    color: white;
+    font-size: small;
+    font-weight: 500;
+    padding: 2% 3% 2% 3%;
+    background-color: rgb(113, 65, 160);
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.regist-button:hover {
+    background-color: rebeccapurple;
+}
+
+/* toggle switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 39px;
+    height: 20px;
+    margin: 0 3% 0 3%;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    bottom: 3px;
+    left: 2px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+input:checked+.slider {
+    background-color: rebeccapurple;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px rebeccapurple;
+}
+
+input:checked+.slider .round {
+    background-color: white;
+}
+
+input:focus+.slider .round {
+    box-shadow: 0 0 1px rebeccapurple;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.otpcontainer {
+    padding: 3%;
+    align-self: center;
+    border: 1px solid rebeccapurple;
+    border-radius: 5px;
+    height: auto;
+    width: 30%;
+    margin: 2% auto 0 auto;
+}
+
+.otp-img {
+    width: 40%;
+    margin: 0 0 0 30%;
+}
+
+.otp-title {
+    margin: 5% 0 0;
+    color: rebeccapurple;
+    text-align: center;
+}
+
+.yourmail {
+    margin: 2% 0 0;
+    color: grey;
+    text-align: center;
+}
+
+.otp {
+    display: flex;
+    flex-direction: column;
+}
+
+.otp-inputs {
+    display: flex;
+    flex-direction: row;
+    margin: 5% 0 4%;
+    justify-content: space-evenly;
+}
+
+.otp input {
+    width: 10%;
+    height: 35px;
+    text-align: center;
+    color: rebeccapurple;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(246, 235, 253);
+    outline: none;
+}
+
+.otp input:focus {
+    border: rebeccapurple 1px solid;
+}
+
+.otp button {
+    margin: 0 auto 0 auto;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: 500;
+    padding: 1.5% 0% 1.5% 0;
+}
+
+.verify-button {
+    width: 50%;
+    background-color: rebeccapurple;
+}
+
+.verify-button:hover {
+    background-color: rgb(127, 66, 189);
+}
+
+.clear-button {
+    width: 30%;
+    background-color: rgb(134, 134, 134);
+}
+
+.clear-button:hover {
+    background-color: rgb(146, 145, 145);
+}
+
+.otp-btns {
+    display: flex;
+    flex-direction: row;
+}
+
+.resend {
+    text-align: right;
+    padding: 0 10% 0;
+    color: rgb(129, 129, 129);
+    margin-bottom: 20px;
+}
+
+.re {
+    color: rebeccapurple;
+    cursor: pointer;
+}
+
+.re:hover {
+    color: rgb(154, 63, 245);
+}
+
+.timer {
+    text-align: right;
+    padding: 2% 10% 0;
+    color: gray;
+}
+
+.timer,
+.yourmail,
+.resend {
+    font-size: 85%;
+}
+
+.time {
+    color: green;
+}
+
+#right-icon {
+    color: rgb(2, 155, 2);
+    margin-right: 3%;
+}
+
+#wrong-icon {
+    color: red;
+    margin-right: 3%;
+}
+
+.toaster-text {
+    color: rgb(236, 234, 234);
+}
+
+.password-caution {
+    color: red;
+    margin: 2% 0 0 5%;
+    font-size: 70%;
+}
+
+@media only screen and (max-width: 480px) {
+    .background {
+        padding: 0 0 0;
+    }
+
+    .regist {
+        width: 87%;
+        margin-top: 10%;
+        margin-bottom: 23%;
+    }
+
+    .otpcontainer {
+        margin-top: 4%;
+        width: 80%;
+    }
+
+    /* .resend, .timer, .yourmail{
+        font-size: ;
+      } */
+    .otp input {
+        height: 30px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+    .regist {
+        width: 77%;
+        margin-top: 15%;
+        margin-bottom: 10%;
+    }
+
+    .background {
+        padding: 1% 0 2% 0;
+    }
+}

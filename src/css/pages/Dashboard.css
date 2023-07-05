@@ -1,0 +1,160 @@
+.dashboard {
+    padding: 10px
+}
+
+.dashboard .dashboard-title {
+    margin-bottom: 20px;
+}
+
+.dashboard .dashboard-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dashboard .dashboard-file {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+    height: 200px;
+    background-color: rgb(226, 220, 220);
+    padding: 10px;
+    border-radius: 4px;
+    margin: 0px 30px 20px 0px;
+}
+
+.dashboard .file-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.dashboard .file-name {
+    height: 20px;
+    overflow: hidden;
+}
+
+.dashboard .dashboard-file-image {
+    width: 160px;
+    height: 150px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dashboard .dots {
+    width: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dashboard .single-dot {
+    width: 3px;
+    height: 3px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-bottom: 2px;
+    font-weight: 600;
+}
+
+.file-dropdown-content {
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.file-dropdown-content .file-dropdown-menu {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.file-dropdown-content .file-dropdown-menu:hover {
+    background-color: #ddd;
+}
+
+.dashboard .dots:hover .file-dropdown-content {
+    display: block;
+}
+
+
+
+
+
+/* share pop-up */
+
+.share-bg {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.share-popup {
+    width: 400px;
+    min-height: 160px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.share-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.share-icons {
+    display: flex;
+    /* flex-wrap: wrap; */
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin: 20px 0px;
+}
+
+.single-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+
+.single-icon .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.single-icon span {
+    font-size: 13px;
+}
+
+.share-close {
+    cursor: pointer;
+}

@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+body {
+  margin: 0;
+  background: grey;
+  overflow-x: hidden;
+}
+
+:root {
+  --color-primary: #7380ec;
+  --color-danger: #ff7782;
+  --color-success: #41f1b6;
+  --color-warning: #ffbb55;
+  --color-white: #fff;
+  --color-info-dark: #7d9da1;
+  --color-info-light: #dce1eb;
+  --color-dark: #363949;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --color-primary-variant: #111e88;
+  --color-dark-variant: #677483;
+  --color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0 2rem 3rem var(--color-light);
+
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+@media (min-width:480px) and (max-width:770px) {
+  .App {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5rem auto;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .left-side {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    transform: translateX(-100%);
+    transition: all 0.4s ease-in-out;
+  }
+
+  .right-side {
+    width: 50rem;
+  }
+
+  .right-side .navbar {
+    width: 50rem;
+    background: #41f1b6;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10rem;
+  }
+
+  .right-side .navbar .middle {
+    position: absolute;
+    top: 1.4rem;
+    left: -4%;
+  }
+
+  .right-side .navbar .right {
+    position: absolute;
+    top: 1.1rem;
+    right: 4%;
+  }
+
+  .right-side .navbar .menu-btn {
+    display: inline;
+    position: absolute;
+    top: 1.4rem;
+    left: 5%;
+  }
+
+  .right-side .main {
+    padding: 10px;
+  }
+
+  .right-side .main .folder {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 2.8rem);
+  }
+
+  .right-side .recent-upload {
+    padding: 10px;
+  }
+
+} */
