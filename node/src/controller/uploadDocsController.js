@@ -5,7 +5,6 @@ const joi = require('joi');
 const { documents } = require('../library/schema.js');
 const { validateRequest } = require('../library/functions.js');
 const multer = require('multer');
-const fs = require('fs');
 
 // const https = require('https');
 
@@ -65,15 +64,13 @@ const uploadDocs = async (req, res) => {
             const data = {
                 user_id: req.headers._id,
                 filename: file.filename,
+                originalname: file.originalname,
                 path: file.path,
+                parent_id: req.body.parent_id ? req.body.parent_id : null,
                 created_date: new Date(),
             }
-
-            console.log(data);
-
             const document = new documents(data);
             await document.save();
-            console.log(document);
         }
         return res.send({ error: false, message: 'uploaded successfully' });
     } catch (error) {
@@ -83,7 +80,13 @@ const uploadDocs = async (req, res) => {
 }
 
 const getDocument = async (req, res) => {
-    await documents.find({ user_id: req.headers._id }).then((data) => {
+    let query = {};
+    if (req.body.searchInput) {
+        query = { user_id: req.headers._id, parent_id: req.body.parent_id, originalname: { $regex: req.body.searchInput, $options: 'i' } }
+    } else {
+        query = { user_id: req.headers._id, parent_id: req.body.parent_id }
+    }
+    await documents.find(query).then((data) => {
         if (data) {
             res.send({ error: false, message: 'success', data: data });
         } else {
@@ -98,38 +101,43 @@ const getDocument = async (req, res) => {
 
 const shareDocument = async (req, res) => {
     // Configure nodemailer transporter
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: { user: process.env.OTP_MAIL, pass: process.env.OTP_PASSWORD, }
-    });
+    // const transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: { user: process.env.OTP_MAIL, pass: process.env.OTP_PASSWORD, }
+    // });
 
-    try {
-        const { from, to, subject, text, fname } = req.body;
+    // try {
+    //     const { from, to, subject, text, fname } = req.body;
 
-        console.log(req.body);
-        // Compose email options
-        const mailOptions = {
-            from: from,
-            to: to,
-            subject,
-            text,
-            attachments: [
-                {
-                    filename: fname, // Replace with your file name
-                    path: `public/documents/${fname}`, // Replace with the path to your file
-                },
-            ],
-        };
+    //     console.log(req.body);
+    //     // Compose email options
+    //     const mailOptions = {
+    //         from: from,
+    //         to: to,
+    //         subject,
+    //         text,
+    //         attachments: [
+    //             {
+    //                 filename: fname, // Replace with your file name
+    //                 path: `public/documents/${fname}`, // Replace with the path to your file
+    //             },
+    //         ],
+    //     };
 
-        // Send the email
-        await transporter.sendMail(mailOptions);
+    //     // Send the email
+    //     await transporter.sendMail(mailOptions);
 
-        // Send response
-        res.send({ error: false, message: 'Email sent successfully' });
-    } catch (error) {
-        console.error(error);
-        res.send({ error: true, message: 'Something went wrong' });
-    }
+    // Send response
+    // const gmailUrl = 'https://github.com'; // Replace with the Gmail URL or any other desired URL
+
+    // Redirect the user to the Gmail URL
+    // res.redirect(gmailUrl);
+    res.send({ error: false });
+    // res.send({ error: false, message: 'Email sent successfully' });
+    // } catch (error) {
+    //     console.error(error);
+    //     res.send({ error: true, message: 'Something went wrong' });
+    // }
 }
 
 

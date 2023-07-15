@@ -1,9 +1,9 @@
 .dashboard {
-    padding: 10px
+    padding: 10px;
 }
 
 .dashboard .dashboard-title {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .dashboard .dashboard-main {
@@ -30,9 +30,12 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+    width: 100%;
+    padding-left: 5px;
 }
 
 .dashboard .file-name {
+    width: 150px;
     height: 20px;
     overflow: hidden;
 }
@@ -50,6 +53,7 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    /* border: 1px solid black; */
 }
 
 .dashboard .single-dot {
@@ -71,6 +75,7 @@
     border-radius: 4px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 10px;
+    z-index: 2;
 }
 
 .file-dropdown-content .file-dropdown-menu {
@@ -85,9 +90,10 @@
     background-color: #ddd;
 }
 
-.dashboard .dots:hover .file-dropdown-content {
+.dashboard-file .dots:hover .file-dropdown-content {
     display: block;
 }
+
 
 
 
@@ -157,4 +163,82 @@
 
 .share-close {
     cursor: pointer;
+}
+
+
+
+
+/* folder css */
+
+.folders {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    /* border: 1px solid red; */
+}
+
+.folders .folder {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 240px;
+    margin-right: 14px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    background-color: #edf3fa;
+    padding: 10px 20px;
+}
+
+.dashboard .folder_img img {
+    width: 18px;
+}
+
+.dashboard .folder_name {
+    width: 140px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.dashboard .folder_name .navlink {
+    text-decoration: none;
+    color: #000;
+}
+
+.dashboard .folder_name .navlink:active {
+    color: blue;
+}
+
+
+
+
+/* folder css dropdown */
+
+.folder-dropdown-content {
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 2;
+}
+
+.folder-dropdown-content .folder-dropdown-menu {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.folder-dropdown-content .folder-dropdown-menu:hover {
+    background-color: #ddd;
+}
+
+.folders .folder .dots:hover .folder-dropdown-content {
+    display: block;
 }

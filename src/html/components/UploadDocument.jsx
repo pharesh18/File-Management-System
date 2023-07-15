@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import { uploadDoc } from '../../Actions/docAction'
 
-const UploadDocument = () => {
-
-
+const UploadDocument = ({ parent_id }) => {
     const handleUpload = (e) => {
         const files = e.target.files;
         const formData = new FormData();
+
+        formData.append('parent_id', parent_id ? parent_id : null);
 
         for (let i = 0; i < files.length; i++) {
             formData.append('files', files[i]);
@@ -14,6 +15,12 @@ const UploadDocument = () => {
 
         uploadDoc(formData);
     }
+
+    // useEffect(() => {
+    //     if (!parent_id) {
+    //         parent_id = null;
+    //     }
+    // }, [parent_id]);
 
 
     // const [selectedFiles, setSelectedFiles] = useState([]);

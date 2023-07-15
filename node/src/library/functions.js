@@ -2,6 +2,8 @@
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { sign, verify } = require('jsonwebtoken');
+const crypto = require('crypto');
+const { folders } = require('../library/schema.js');
 
 const generateOtp = (length = 4) => {
     let otp = String(Math.ceil(Math.random() * 10000));
@@ -54,8 +56,23 @@ const validateRequest = (reqSchema, res, next, schema) => {
     }
 }
 
+const generateUniqueString = async (length = 16) => {
+    const unique_id = crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
+    console.log(unique_id);
+    if (!unique_id.length === length) {
+        generateUniqueString();
+    }
+    const data = await folders.find({ unique_id });
+    if (!data.length > 0) {
+        return unique_id;
+    } else {
+        generateUniqueString();
+    }
+}
+
+
 // const deleteUsers = async () => {
 //     await users.deleteMany();
 // }
 
-module.exports = { generateOtp, sendEmail, encryptPassword, verifyToken, generateToken, validateRequest }
+module.exports = { generateOtp, sendEmail, encryptPassword, verifyToken, generateToken, validateRequest, generateUniqueString }

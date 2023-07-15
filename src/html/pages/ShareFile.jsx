@@ -20,7 +20,7 @@ const ShareFile = () => {
             fname: location.state.fname
         }
         console.log(body);
-        // shareFile(body, navigate);
+        shareFile(body, navigate);
     }
 
     return (

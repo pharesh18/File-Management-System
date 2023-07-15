@@ -5,7 +5,7 @@ import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 // import profile from '../../images/profile1.jpg'
 import { NavLink, useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ setSearchInput }) => {
     const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const navigate = useNavigate();
@@ -20,18 +20,18 @@ const Header = () => {
         // window.location.href = '/';
     }
 
-    const handleShareDocument = () => {
-        console.log("before");
-        const email = 'hp452444@gmail.com'; // Replace with the recipient's email address
-        const subject = 'Shared Document'; // Replace with the subject of the email
-        const body = 'Please find the shared document attached.'; // Replace with the body of the email
+    // const handleShareDocument = () => {
+    //     console.log("before");
+    //     const email = 'hp452444@gmail.com'; // Replace with the recipient's email address
+    //     const subject = 'Shared Document'; // Replace with the subject of the email
+    //     const body = 'Please find the shared document attached.'; // Replace with the body of the email
 
-        const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
-            subject
-        )}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailtoLink;
-        console.log("After");
-    }
+    //     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+    //         subject
+    //     )}&body=${encodeURIComponent(body)}`;
+    //     window.location.href = mailtoLink;
+    //     console.log("After");
+    // }
 
     return (
         <>
@@ -39,7 +39,7 @@ const Header = () => {
                 <div className="searchbar">
                     <div className="search">
                         <SearchIcon className="search-icon"></SearchIcon>
-                        <input type="text" className='search-input' placeholder='Search file' />
+                        <input type="text" className='search-input' placeholder='Search file' onChange={(e) => setSearchInput(e.target.value)} />
                     </div>
                     <input type="button" className='search-button' value="Browse" />
                 </div>
@@ -54,8 +54,7 @@ const Header = () => {
                                     <NavLink to="/changeprofile" className="dropdown-menu">Change Profile</NavLink>
                                     <NavLink to="/changepassword" className="dropdown-menu">Change Password</NavLink>
                                     <NavLink to="#" className="dropdown-menu" onClick={handleLogout}>Logout</NavLink>
-                                    <NavLink to="#" className="dropdown-menu" onClick={handleShareDocument}>Share</NavLink>
-
+                                    {/* <NavLink to="#" className="dropdown-menu" onClick={handleShareDocument}>Share</NavLink> */}
                                 </div>
                             </>
                         )}

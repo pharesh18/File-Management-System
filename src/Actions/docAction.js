@@ -1,5 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import fileImg from '../images/gmail1.jpg';
+
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
 export const uploadDoc = async (files) => {
@@ -23,40 +25,64 @@ export const uploadDoc = async (files) => {
 }
 
 
-export const getDocs = async (files) => {
-    try {
-        const headers = {
-            'Content-Type': 'application/json',
-            _id: userInfo._id,
-            accesstoken: userInfo.accesstoken
-        };
-        const { data } = await axios.get("http://localhost:8000/api/doc/getdocs", { headers });
-        if (data.error) {
-            toast.error(data.message);
-        } else {
-            return data;
-        }
-    } catch (err) {
-        console.log(err);
-    }
-}
+// export const getDocs = async (files) => {
+//     try {
+//         const headers = {
+//             'Content-Type': 'application/json',
+//             _id: userInfo._id,
+//             accesstoken: userInfo.accesstoken
+//         };
+//         const { data } = await axios.get("http://localhost:8000/api/doc/getdocs", { headers });
+//         if (data.error) {
+//             toast.error(data.message);
+//         } else {
+//             return data;
+//         }
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
 
-export const shareFile = async (body, navigate) => {
-    try {
-        const headers = {
-            'Content-Type': 'application/json',
-            _id: userInfo._id,
-            accesstoken: userInfo.accesstoken
-        };
 
-        const { data } = await axios.post("http://localhost:8000/api/doc/share/gmail", body, { headers });
-        if (!data.error) {
-            toast.success(data.message);
-            navigate('/')
-        } else {
-            toast.error(data.message);
-        }
-    } catch (err) {
-        console.log(err);
-    }
+export const shareFile = async (boddf, navigate) => {
+    const email = "hp452444@gmail.com";
+    const subject = "My Subject";
+    const body = "My Message";
+    // const attachment = "path/to/file.pdf";
+    // const from = "hmp24040@gmail.com";
+    const to = email;
+    // const imgName = "1688303726907_MC.pdf"
+
+    // const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&subject=${subject}&body=${body}&attach=${fileImg}`;
+    // const url = `https://mail.google.com/mail/?view=cm&fs=1&attach=${fileImg}`;
+    const file = new File([fileImg], 'gmail1.jpg', { type: 'image/jpeg' });
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&subject=${subject}&body=${body}&attach=${file}`;
+    window.location.href = url;
+
+    // const email = "hmp24040@gmail.com";
+    // const subject = "My Subject";
+    // const body = "My Message";
+    // // const attachment = fileImg;
+
+    // const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&subject=${subject}&body=${body}&attach=${fileImg}`;
+    // window.location.href = url;
+    // try {
+    //     const headers = {
+    //         'Content-Type': 'application/json',
+    //         _id: userInfo._id,
+    //         accesstoken: userInfo.accesstoken
+    //     };
+
+    //     const { data } = await axios.post("http://localhost:8000/api/doc/share/gmail", body, { headers });
+    //     // console.log(data);
+    //     if (!data.error) {
+    //         // toast.success(data.message);
+    //         window.location.href = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=Subject&body=Body&attid=0.1&disp=safe&zw&attach=${encodeURIComponent(fileImg)}`;
+    //     } else {
+    //         // toast.error(data.message);
+    //         console.log(data);
+    //     }
+    // } catch (err) {
+    //     console.log(err);
+    // }
 }
