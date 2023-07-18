@@ -10,12 +10,10 @@ import folderImg from '../../images/folder.png';
 import textImg from '../../images/txt.png';
 import pdfImg from '../../images/pdff.png';
 import fileImg from '../../images/file.png';
-import { deleteFile, downloadFile } from '../../Actions/docAction';
-import { deleteFolder } from '../../Actions/folderAction';
 
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
-const Dashboard = ({ searchInput, setDataFromChild }) => {
+const AdminDashboard = ({ searchInput, setDataFromChild }) => {
     const { parent_id } = useParams();
     setDataFromChild(parent_id);
 
@@ -59,14 +57,6 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
     const handleShare = () => {
         const open = document.querySelector(".share-bg");
         open.style.display = "block";
-    }
-
-    const handleDownload = (filename, originalname) => {
-        const body = {
-            filename: filename,
-            originalname: originalname
-        }
-        downloadFile(body);
     }
 
     const handleClose = () => {
@@ -121,26 +111,6 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
         }
     }
 
-    const handleDelete = (filename) => {
-        const body = {
-            filename: filename
-        }
-        setTimeout(() => {
-            getDocs();
-        }, 1000)
-        deleteFile(body);
-    }
-
-    const handleDeleteFolder = (unique_id) => {
-        const body = {
-            unique_id: unique_id
-        }
-        setTimeout(() => {
-            getFolders();
-        }, 1000)
-        deleteFolder(body);
-    }
-
     useEffect(() => {
         getFolders();
         getDocs();
@@ -178,7 +148,7 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
                                         </div>
                                         {openFolderDropdown === index && (
                                             <div className="folder-dropdown-content">
-                                                <NavLink className="folder-dropdown-menu" to="#" onClick={() => handleDeleteFolder(val.unique_id)}>Delete</NavLink>
+                                                <NavLink className="folder-dropdown-menu" to="#">Delete</NavLink>
                                             </div>
                                         )}
                                     </div>
@@ -203,7 +173,7 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
                                     return (
                                         <div className="dashboard-file" key={index}>
                                             <div className="file-header">
-                                                <p className='file-name'>{val.originalname}</p>
+                                                <p className='file-name'>{val.filename.split('_')[1]}</p>
                                                 <div className="dots" onClick={() => toggleDropdown(index)}>
                                                     <div className='single-dot'></div>
                                                     <div className='single-dot'></div>
@@ -212,8 +182,7 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
                                                 {openFileDropdown === index && (
                                                     <div className="file-dropdown-content">
                                                         <NavLink className="file-dropdown-menu" to="#" onClick={handleShare}>Share</NavLink>
-                                                        <NavLink className="file-dropdown-menu" to="#" onClick={() => handleDownload(val.filename, val.originalname)}>Download</NavLink>
-                                                        <NavLink className="file-dropdown-menu" to="#" onClick={() => handleDelete(val.filename)}>Delete</NavLink>
+                                                        <NavLink className="file-dropdown-menu" to="#">Download</NavLink>
                                                     </div>
                                                 )}
                                             </div>
@@ -246,8 +215,9 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
                     </div>
                 </div>
             </div>
+
         </>
     )
 }
 
-export default Dashboard
+export default AdminDashboard

@@ -1,4 +1,4 @@
-const { folders } = require('../library/schema.js');
+const { folders, documents } = require('../library/schema.js');
 const crypto = require('crypto');
 
 const createFolder = async (req, res) => {
@@ -14,22 +14,32 @@ const createFolder = async (req, res) => {
 
     const data = {
         user_id: req.headers._id,
-        folder_name: req.body.folder_name,
+        folder_name: req.body.folder_name.trim(),
         unique_id,
         parent_id: req.body.parent_id ? req.body.parent_id : null,
         created_date: new Date(),
     }
 
     let folder = new folders(data);
-    return await folder.save().then(async (result) => {
-        if (result) {
-            res.send({ error: false, message: 'success' });
+
+    return await folders.find({ user_id: req.headers._id, parent_id: data.parent_id, folder_name: { $regex: req.body.folder_name.trim(), $options: 'i' } }).then(async (response) => {
+        if (response.length > 0) {
+            res.send({ error: true, message: "Folder with the same name already exists, try another!" })
         } else {
-            res.send({ error: true, message: 'something_went_wrong' });
+            await folder.save().then(async (result) => {
+                if (result) {
+                    res.send({ error: false, message: 'success' });
+                } else {
+                    res.send({ error: true, message: 'something_went_wrong' });
+                }
+            }).catch(error => {
+                console.log(error);
+                res.send({ error: true, message: 'something_broken' });
+            });
         }
     }).catch(error => {
         console.log(error);
-        res.send({ error: true, message: 'something_broken' });
+        res.send({ error: true, message: "something_broken" });
     });
 };
 
@@ -48,5 +58,30 @@ const getFolders = async (req, res) => {
     });
 };
 
+// broken code
+const deleteFolder = async (req, res) => {
+    return await folders.find({ user_id: req.headers._id, parent_id: req.body.unique_id }).then(async (data) => {
+        // if (data.length > 0) {
+        //     res.send({ error: true, message: "Non empty folder can not be deleted!" });
+        // } else {
+        //     await documents.find({ user_id: req.headers._id, parent_id: req.body.unique_id, is_deleted: true }).then(async (result) => {
+        //         if (result.length > 0) {
+        res.send({ error: true, message: "Non empty folder can not be deleted!" });
+        //         } else {
+        //             await folders.findOneAndDelete({ user_id: req.headers._id, unique_id: req.body.unique_id });
+        //             await documents.deleteMany({ user_id: req.headers._id, parent_id: req.body.unique_id });
+        //             res.send({ error: false, message: "Folder deleted!" });
+        //         }
+        //     }).catch(error => {
+        //         console.log(error);
+        //         res.send({ error: true, message: "something_broken" });
+        //     });
+        // }
+    }).catch(error => {
+        console.log(error);
+        res.send({ error: true, message: "something_broken" });
+    });
+}
 
-module.exports = { createFolder, getFolders }
+
+module.exports = { createFolder, getFolders, deleteFolder }

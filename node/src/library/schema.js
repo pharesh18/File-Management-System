@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
+const { boolean } = require('joi');
 // const { deleteUsers } = require('./functions');
 
 const schema = {};
@@ -62,6 +63,10 @@ schema.documents = Schema({
     },
     parent_id: {
         type: String,
+    },
+    is_deleted: {
+        type: Boolean,
+        default: false
     },
     created_date: {
         type: Date,

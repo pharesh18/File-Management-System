@@ -25,6 +25,129 @@ export const uploadDoc = async (files) => {
 }
 
 
+export const downloadFile = async (body) => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            _id: userInfo._id,
+            accesstoken: userInfo.accesstoken
+        };
+
+        const { data } = await axios.post("http://localhost:8000/api/doc/download", body, { headers });
+        console.log(data);
+        if (!data.error) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const deleteFile = async (body) => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            _id: userInfo._id,
+            accesstoken: userInfo.accesstoken
+        };
+
+        const { data } = await axios.post("http://localhost:8000/api/doc/delete", body, { headers });
+        console.log(data);
+        if (!data.error) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const restoreFile = async (body) => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            _id: userInfo._id,
+            accesstoken: userInfo.accesstoken
+        };
+
+        const { data } = await axios.post("http://localhost:8000/api/doc/bin/restore", body, { headers });
+        console.log(data);
+        if (!data.error) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const restoreAll = async () => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            _id: userInfo._id,
+            accesstoken: userInfo.accesstoken
+        };
+
+        const { data } = await axios.get("http://localhost:8000/api/doc/bin/restoreall", { headers });
+        console.log(data);
+        if (!data.error) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+export const deletePermanent = async (body) => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            _id: userInfo._id,
+            accesstoken: userInfo.accesstoken
+        };
+
+        const { data } = await axios.post("http://localhost:8000/api/doc/bin/delete", body, { headers });
+        console.log(data);
+        if (!data.error) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const deleteAllPermanent = async () => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            _id: userInfo._id,
+            accesstoken: userInfo.accesstoken
+        };
+
+        const { data } = await axios.get("http://localhost:8000/api/doc/bin/deleteall", { headers });
+        console.log(data);
+        if (!data.error) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+
 // export const getDocs = async (files) => {
 //     try {
 //         const headers = {

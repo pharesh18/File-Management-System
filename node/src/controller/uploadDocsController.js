@@ -5,6 +5,8 @@ const joi = require('joi');
 const { documents } = require('../library/schema.js');
 const { validateRequest } = require('../library/functions.js');
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 // const https = require('https');
 
@@ -67,6 +69,7 @@ const uploadDocs = async (req, res) => {
                 originalname: file.originalname,
                 path: file.path,
                 parent_id: req.body.parent_id ? req.body.parent_id : null,
+                is_deleted: false,
                 created_date: new Date(),
             }
             const document = new documents(data);
@@ -82,9 +85,9 @@ const uploadDocs = async (req, res) => {
 const getDocument = async (req, res) => {
     let query = {};
     if (req.body.searchInput) {
-        query = { user_id: req.headers._id, parent_id: req.body.parent_id, originalname: { $regex: req.body.searchInput, $options: 'i' } }
+        query = { user_id: req.headers._id, parent_id: req.body.parent_id, is_deleted: false, originalname: { $regex: req.body.searchInput, $options: 'i' } }
     } else {
-        query = { user_id: req.headers._id, parent_id: req.body.parent_id }
+        query = { user_id: req.headers._id, parent_id: req.body.parent_id, is_deleted: false }
     }
     await documents.find(query).then((data) => {
         if (data) {
@@ -98,6 +101,138 @@ const getDocument = async (req, res) => {
     });
 }
 
+const getBin = async (req, res) => {
+    let query = {};
+    if (req.body.searchInput) {
+        query = { user_id: req.headers._id, is_deleted: true, originalname: { $regex: req.body.searchInput, $options: 'i' } }
+    } else {
+        query = { user_id: req.headers._id, is_deleted: true }
+    }
+    await documents.find(query).then((data) => {
+        if (data) {
+            res.send({ error: false, message: 'success', data: data });
+        } else {
+            res.send({ error: false, message: 'NO FILES FOUND', data: {} });
+        }
+    }).catch((error) => {
+        console.log(error);
+        res.send({ errro: true, message: 'Something_broken' });
+    });
+}
+
+const downloadFile = async (req, res) => {
+    try {
+        const fileName = req.body.filename;
+        const filePath = path.join('public', 'documents', fileName);
+
+        const downloadPath = path.join(process.env.HOMEDRIVE, process.env.HOMEPATH, 'Downloads', req.body.originalname);
+
+        const fileStream = fs.createReadStream(filePath);
+        const writeStream = fs.createWriteStream(downloadPath);
+
+        await fileStream.pipe(writeStream);
+        res.send({ error: false, message: 'File Downloaded' });
+    } catch (err) {
+        console.log(err);
+        res.send({ errro: true, message: "something broken" });
+    }
+}
+
+const deleteFile = async (req, res) => {
+    return await documents.findOneAndUpdate({ user_id: req.headers._id, filename: req.body.filename }, { is_deleted: true }).then((data) => {
+        if (data) {
+            res.send({ error: false, message: "File deleted" });
+        } else {
+            res.send({ error: true, message: "File Not Found" });
+        }
+    }).catch(error => {
+        console.log(error);
+        res.send({ error: true, message: "Something_broken" });
+    });
+}
+
+const restoreFile = async (req, res) => {
+    return await documents.findOneAndUpdate({ user_id: req.headers._id, filename: req.body.filename }, { is_deleted: false }).then((data) => {
+        if (data) {
+            res.send({ error: false, message: "File restored" });
+        } else {
+            res.send({ error: true, message: "File Not Found" });
+        }
+    }).catch(error => {
+        console.log(error);
+        res.send({ error: true, message: "Something_broken" });
+    });
+}
+
+const restoreAll = async (req, res) => {
+    return await documents.updateMany({ user_id: req.headers._id, is_deleted: true }, { is_deleted: false }).then((data) => {
+        if (data) {
+            res.send({ error: false, message: "All files restored" });
+        } else {
+            res.send({ error: true, message: "File Not Found" });
+        }
+    }).catch(error => {
+        console.log(error);
+        res.send({ error: true, message: "Something_broken" });
+    });
+}
+
+
+const deletePermanent = async (req, res) => {
+    return await documents.findOneAndDelete({ user_id: req.headers._id, filename: req.body.filename, is_deleted: true }).then((data) => {
+        if (data) {
+            res.send({ error: false, message: "File permanently deleted" });
+        } else {
+            res.send({ error: true, message: "File Not Found" });
+        }
+    }).catch(error => {
+        console.log(error);
+        res.send({ error: true, message: "Something_broken" });
+    });
+}
+
+const deleteAllPermanent = async (req, res) => {
+    return await documents.deleteMany({ user_id: req.headers._id, is_deleted: true }).then((data) => {
+        if (data) {
+            res.send({ error: false, message: "All files permanently deleted" });
+        } else {
+            res.send({ error: true, message: "File Not Found" });
+        }
+    }).catch(error => {
+        console.log(error);
+        res.send({ error: true, message: "Something_broken" });
+    });
+}
+
+const recentData = async (req, res) => {
+    let lastWeekQuery = {};
+    let lastMonthQuery = {};
+    let oldDataQuery = {};
+    try {
+        const now = new Date();
+        const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+        if (req.body.searchInput) {
+            lastWeekQuery = { user_id: req.headers._id, is_deleted: false, originalname: { $regex: req.body.searchInput, $options: 'i' }, created_date: { $gte: oneWeekAgo, $lt: now } };
+            lastMonthQuery = { user_id: req.headers._id, is_deleted: false, originalname: { $regex: req.body.searchInput, $options: 'i' }, created_date: { $lt: oneWeekAgo, $gte: oneMonthAgo } };
+            oldDataQuery = { user_id: req.headers._id, is_deleted: false, originalname: { $regex: req.body.searchInput, $options: 'i' }, created_date: { $lt: oneMonthAgo } };
+        } else {
+            lastWeekQuery = { user_id: req.headers._id, is_deleted: false, created_date: { $gte: oneWeekAgo, $lt: now } };
+            lastMonthQuery = { user_id: req.headers._id, is_deleted: false, created_date: { $lt: oneWeekAgo, $gte: oneMonthAgo } };
+            oldDataQuery = { user_id: req.headers._id, is_deleted: false, created_date: { $lt: oneMonthAgo } };
+        }
+
+        const lastWeek = await documents.find(lastWeekQuery);
+        const lastMonth = await documents.find(lastMonthQuery);
+        const oldData = await documents.find(oldDataQuery);
+
+        res.send({ error: false, message: 'success', data: { lastWeek, lastMonth, oldData } });
+    } catch (error) {
+        console.log(error);
+        res.send({ error: true, message: "something_broken" });
+    }
+}
 
 const shareDocument = async (req, res) => {
     // Configure nodemailer transporter
@@ -146,7 +281,15 @@ module.exports = {
     validateUploadDocs,
     uploadDocs,
     getDocument,
-    shareDocument
+    shareDocument,
+    downloadFile,
+    deleteFile,
+    getBin,
+    restoreFile,
+    deletePermanent,
+    deleteAllPermanent,
+    restoreAll,
+    recentData
 };
 
 // cloudinary.config({

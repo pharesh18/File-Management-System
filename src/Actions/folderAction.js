@@ -39,3 +39,22 @@ export const getFolders = async (body) => {
         console.log(err);
     }
 }
+
+export const deleteFolder = async (body) => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            _id: userInfo._id,
+            accesstoken: userInfo.accesstoken
+        };
+
+        const { data } = await axios.post("http://localhost:8000/api/folder/delete", body, { headers });
+        if (!data.error) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
