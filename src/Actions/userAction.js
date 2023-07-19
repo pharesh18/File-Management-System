@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ApiCaller from '../apiCaller/ApiCaller';
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
 export const register = async (body, setIsRegistered) => {
     try {
-        const { data } = await axios.post("http://localhost:8000/api/users/register", body);
+        const { data } = await axios.post(`${ApiCaller.site}/users/register`, body);
         console.log(data);
         if (!data.error) {
             toast.success("OTP sent on your email");
@@ -19,7 +20,7 @@ export const register = async (body, setIsRegistered) => {
 
 export const verifyOtp = async (body, navigate) => {
     try {
-        const { data } = await axios.post("http://localhost:8000/api/users/otp", body);
+        const { data } = await axios.post(`${ApiCaller.site}/users/otp`, body);
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -36,7 +37,7 @@ export const verifyOtp = async (body, navigate) => {
 
 export const login = async (body, navigate) => {
     try {
-        const { data } = await axios.post("http://localhost:8000/api/users/login", body);
+        const { data } = await axios.post(`${ApiCaller.site}/users/login`, body);
         console.log(data);
         if (!data.error) {
             console.log(data);
@@ -55,7 +56,7 @@ export const login = async (body, navigate) => {
 
 export const forgetPassword = async (body, navigate) => {
     try {
-        const { data } = await axios.post("http://localhost:8000/api/users/forgetpassword", body);
+        const { data } = await axios.post(`${ApiCaller.site}/users/forgetpassword`, body);
         if (!data.error) {
             toast.success("OTP sent on your email");
             navigate(`/otp/${body.email}`);
@@ -77,7 +78,7 @@ export const changeProfile = async (profile, navigate) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/users/uploadprofile", profile, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/users/uploadprofile`, profile, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -101,7 +102,7 @@ export const changePassword = async (body, navigate) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/users/changepassword", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/users/changepassword`, body, { headers });
         if (!data.error) {
             toast.success(data.message);
             localStorage.setItem('userInfo', JSON.stringify(data.data));

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ApiCaller from '../apiCaller/ApiCaller';
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
 export const createFolder = async (body) => {
@@ -10,7 +11,7 @@ export const createFolder = async (body) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/folder/create", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/folder/create`, body, { headers });
         if (!data.error) {
             toast.success(data.message);
         } else {
@@ -29,7 +30,7 @@ export const getFolders = async (body) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/folder/get", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/folder/get`, body, { headers });
         if (!data.error) {
             toast.success(data.message);
         } else {
@@ -48,7 +49,7 @@ export const deleteFolder = async (body) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/folder/delete", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/folder/delete`, body, { headers });
         if (!data.error) {
             toast.success(data.message);
         } else {

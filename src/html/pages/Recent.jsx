@@ -10,6 +10,7 @@ import textImg from '../../images/txt.png';
 import pdfImg from '../../images/pdff.png';
 import fileImg from '../../images/file.png';
 import { deleteFile, downloadFile } from '../../Actions/docAction';
+import ApiCaller from '../../apiCaller/ApiCaller';
 
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
@@ -97,7 +98,7 @@ const Recent = ({ searchInput, setDataFromChild }) => {
                 accesstoken: userInfo.accesstoken
             };
 
-            const { data } = await axios.post("http://localhost:8000/api/doc/recent/get", body, { headers });
+            const { data } = await axios.post(`${ApiCaller.site}/doc/recent/get`, body, { headers });
             console.log(data);
             if (data.error) {
                 toast.error(data.message);

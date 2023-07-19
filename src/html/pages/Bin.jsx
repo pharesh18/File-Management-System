@@ -11,6 +11,7 @@ import textImg from '../../images/txt.png';
 import pdfImg from '../../images/pdff.png';
 import fileImg from '../../images/file.png';
 import { deleteAllPermanent, deletePermanent, restoreAll, restoreFile } from '../../Actions/docAction';
+import ApiCaller from '../../apiCaller/ApiCaller';
 
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
@@ -57,7 +58,7 @@ const Bin = ({ searchInput, setDataFromChild }) => {
                 _id: userInfo._id,
                 accesstoken: userInfo.accesstoken
             };
-            const { data } = await axios.post("http://localhost:8000/api/doc/bin/get", body, { headers });
+            const { data } = await axios.post(`${ApiCaller.site}/doc/bin/get`, body, { headers });
             if (data.error) {
                 toast.error(data.message);
             } else {

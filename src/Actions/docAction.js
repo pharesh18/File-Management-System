@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import fileImg from '../images/gmail1.jpg';
+import ApiCaller from "../apiCaller/ApiCaller";
 
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
@@ -12,7 +13,7 @@ export const uploadDoc = async (files) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/doc/upload", files, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/doc/upload`, files, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -33,7 +34,7 @@ export const downloadFile = async (body) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/doc/download", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/doc/download`, body, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -53,7 +54,7 @@ export const deleteFile = async (body) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/doc/delete", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/doc/delete`, body, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -73,7 +74,7 @@ export const restoreFile = async (body) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/doc/bin/restore", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/doc/bin/restore`, body, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -93,7 +94,7 @@ export const restoreAll = async () => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.get("http://localhost:8000/api/doc/bin/restoreall", { headers });
+        const { data } = await axios.get(`${ApiCaller.site}/doc/bin/restoreall`, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -114,7 +115,7 @@ export const deletePermanent = async (body) => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.post("http://localhost:8000/api/doc/bin/delete", body, { headers });
+        const { data } = await axios.post(`${ApiCaller.site}/doc/bin/delete`, body, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -134,7 +135,7 @@ export const deleteAllPermanent = async () => {
             accesstoken: userInfo.accesstoken
         };
 
-        const { data } = await axios.get("http://localhost:8000/api/doc/bin/deleteall", { headers });
+        const { data } = await axios.get(`${ApiCaller.site}/doc/bin/deleteall`, { headers });
         console.log(data);
         if (!data.error) {
             toast.success(data.message);
@@ -155,7 +156,7 @@ export const deleteAllPermanent = async () => {
 //             _id: userInfo._id,
 //             accesstoken: userInfo.accesstoken
 //         };
-//         const { data } = await axios.get("http://localhost:8000/api/doc/getdocs", { headers });
+//         const { data } = await axios.get(`${ApiCaller.site}/doc/getdocs`, { headers });
 //         if (data.error) {
 //             toast.error(data.message);
 //         } else {
@@ -196,7 +197,7 @@ export const shareFile = async (boddf, navigate) => {
     //         accesstoken: userInfo.accesstoken
     //     };
 
-    //     const { data } = await axios.post("http://localhost:8000/api/doc/share/gmail", body, { headers });
+    //     const { data } = await axios.post(`${ApiCaller.site}/doc/share/gmail`, body, { headers });
     //     // console.log(data);
     //     if (!data.error) {
     //         // toast.success(data.message);

@@ -12,6 +12,7 @@ import pdfImg from '../../images/pdff.png';
 import fileImg from '../../images/file.png';
 import { deleteFile, downloadFile } from '../../Actions/docAction';
 import { deleteFolder } from '../../Actions/folderAction';
+import ApiCaller from '../../apiCaller/ApiCaller';
 
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
@@ -88,7 +89,7 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
                 _id: userInfo._id,
                 accesstoken: userInfo.accesstoken
             };
-            const { data } = await axios.post("http://localhost:8000/api/doc/getdocs", body, { headers });
+            const { data } = await axios.post(`${ApiCaller.site}/doc/getdocs`, body, { headers });
             if (data.error) {
                 toast.error(data.message);
             } else {
@@ -112,7 +113,7 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
                 accesstoken: userInfo.accesstoken
             };
 
-            const { data } = await axios.post("http://localhost:8000/api/folder/get", body, { headers });
+            const { data } = await axios.post(`${ApiCaller.site}/folder/get`, body, { headers });
             if (data.error) {
                 toast.error(data.message);
             } else {
