@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { uploadDoc } from '../../Actions/docAction'
 
-const UploadDocument = ({ parent_id }) => {
+const UploadDocument = ({ parent_id, uploadFile, setUploadFile }) => {
     const handleUpload = (e) => {
         const files = e.target.files;
         const formData = new FormData();
@@ -13,6 +13,9 @@ const UploadDocument = ({ parent_id }) => {
             formData.append('files', files[i]);
         }
 
+        setTimeout(() => {
+            setUploadFile(!uploadFile);
+        }, 1000)
         uploadDoc(formData);
     }
 

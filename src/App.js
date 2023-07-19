@@ -24,6 +24,8 @@ function App() {
   const isAdmin = false;
   const [dataFromChild, setDataFromChild] = useState();
   const [searchInput, setSearchInput] = useState('');
+  const [uploadFile, setUploadFile] = useState(false);
+  const [uploadFolder, setUploadFolder] = useState(false);
 
   const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
@@ -38,7 +40,7 @@ function App() {
           <>
             <div className="left">
               <div>
-                <Sidebar parent_id={dataFromChild}></Sidebar>
+                <Sidebar parent_id={dataFromChild} uploadFile={uploadFile} setUploadFile={setUploadFile} uploadFolder={uploadFolder} setUploadFolder={setUploadFolder}></Sidebar>
               </div>
             </div>
             <div className='right'>
@@ -47,8 +49,8 @@ function App() {
               </div>
               <div className="main">
                 <Routes>
-                  <Route path="/" element={userInfo ? <Dashboard searchInput={searchInput} setDataFromChild={setDataFromChild}></Dashboard> : <Login></Login>} />
-                  <Route path="/:parent_id" element={<Dashboard searchInput={searchInput} setDataFromChild={setDataFromChild}></Dashboard>} />
+                  <Route path="/" element={userInfo ? <Dashboard searchInput={searchInput} uploadFile={uploadFile} uploadFolder={uploadFolder} setDataFromChild={setDataFromChild}></Dashboard> : <Login></Login>} />
+                  <Route path="/:parent_id" element={<Dashboard searchInput={searchInput} uploadFile={uploadFile} uploadFolder={uploadFolder} setDataFromChild={setDataFromChild}></Dashboard>} />
                   <Route path="/register" element={<Register></Register>} />
                   <Route path="/login" element={<Login></Login>} />
                   <Route path='/changeprofile' element={userInfo ? <ChangeProfile></ChangeProfile> : <Login></Login>} />

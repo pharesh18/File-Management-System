@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createFolder } from '../../Actions/folderAction';
 
-const CreateFolder = ({ parent_id }) => {
+const CreateFolder = ({ parent_id, uploadFolder, setUploadFolder }) => {
     const [folderName, setFolderName] = useState()
 
     const handleChange = (e) => {
@@ -26,6 +26,9 @@ const CreateFolder = ({ parent_id }) => {
             parent_id: parent_id
         }
         createFolder(body);
+        setTimeout(() => {
+            setUploadFolder(!uploadFolder);
+        }, 1000)
         setFolderName("");
         const close = document.querySelector(".create-folder");
         close.style.display = "none";

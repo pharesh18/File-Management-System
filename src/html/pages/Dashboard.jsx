@@ -15,7 +15,7 @@ import { deleteFolder } from '../../Actions/folderAction';
 
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
-const Dashboard = ({ searchInput, setDataFromChild }) => {
+const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) => {
     const { parent_id } = useParams();
     setDataFromChild(parent_id);
 
@@ -59,6 +59,7 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
     const handleShare = () => {
         const open = document.querySelector(".share-bg");
         open.style.display = "block";
+        setOpenFileDropdown(null);
     }
 
     const handleDownload = (filename, originalname) => {
@@ -67,6 +68,7 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
             originalname: originalname
         }
         downloadFile(body);
+        setOpenFileDropdown(null);
     }
 
     const handleClose = () => {
@@ -129,6 +131,7 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
             getDocs();
         }, 1000)
         deleteFile(body);
+        setOpenFileDropdown(null);
     }
 
     const handleDeleteFolder = (unique_id) => {
@@ -139,12 +142,13 @@ const Dashboard = ({ searchInput, setDataFromChild }) => {
             getFolders();
         }, 1000)
         deleteFolder(body);
+        setOpenFolderDropdown(null);
     }
 
     useEffect(() => {
         getFolders();
         getDocs();
-    }, [parent_id, searchInput]);
+    }, [parent_id, searchInput, uploadFile, uploadFolder]);
 
     return (
         <>

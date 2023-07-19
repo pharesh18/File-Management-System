@@ -44,7 +44,6 @@ const createFolder = async (req, res) => {
 };
 
 
-
 const getFolders = async (req, res) => {
     await folders.find({ user_id: req.headers._id, parent_id: req.body.parent_id }).then((data) => {
         if (data) {
@@ -58,30 +57,24 @@ const getFolders = async (req, res) => {
     });
 };
 
-// broken code
 const deleteFolder = async (req, res) => {
     return await folders.find({ user_id: req.headers._id, parent_id: req.body.unique_id }).then(async (data) => {
-        // if (data.length > 0) {
-        //     res.send({ error: true, message: "Non empty folder can not be deleted!" });
-        // } else {
-        //     await documents.find({ user_id: req.headers._id, parent_id: req.body.unique_id, is_deleted: true }).then(async (result) => {
-        //         if (result.length > 0) {
-        res.send({ error: true, message: "Non empty folder can not be deleted!" });
-        //         } else {
-        //             await folders.findOneAndDelete({ user_id: req.headers._id, unique_id: req.body.unique_id });
-        //             await documents.deleteMany({ user_id: req.headers._id, parent_id: req.body.unique_id });
-        //             res.send({ error: false, message: "Folder deleted!" });
-        //         }
-        //     }).catch(error => {
-        //         console.log(error);
-        //         res.send({ error: true, message: "something_broken" });
-        //     });
-        // }
-    }).catch(error => {
-        console.log(error);
+        await documents.find({ user_id: req.headers._id, parent_id: req.body.unique_id, is_deleted: false }).then(async (result) => {
+            if (data.length > 0 || result.length > 0) {
+                res.send({ error: true, message: "Non empty folder can not be deleted!" });
+            } else {
+                await documents.deleteMany({ user_id: req.headers._id, parent_id: req.body.unique_id, is_deleted: true });
+                await folders.findOneAndDelete({ user_id: req.headers._id, unique_id: req.body.unique_id });
+                res.send({ error: false, message: "Folder deleted!" });
+            }
+        }).catch((err) => {
+            console.log(err);
+            res.send({ error: true, message: "something_broken" });
+        });
+    }).catch((err) => {
+        console.log(err);
         res.send({ error: true, message: "something_broken" });
     });
 }
-
 
 module.exports = { createFolder, getFolders, deleteFolder }

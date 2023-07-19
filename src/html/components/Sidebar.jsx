@@ -9,7 +9,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import UploadDocument from './UploadDocument';
 import CreateFolder from './CreateFolder';
 
-const Sidebar = ({ parent_id }) => {
+const Sidebar = ({ parent_id, uploadFile, setUploadFile, uploadFolder, setUploadFolder }) => {
     const { pathname } = useLocation();
     const [navActive, setNavActive] = useState(1);
 
@@ -33,8 +33,8 @@ const Sidebar = ({ parent_id }) => {
                     <h1>ADMIN</h1>
                 </div>
                 <div className="uploads">
-                    <CreateFolder parent_id={parent_id}></CreateFolder>
-                    <UploadDocument parent_id={parent_id}></UploadDocument>
+                    <CreateFolder parent_id={parent_id} uploadFolder={uploadFolder} setUploadFolder={setUploadFolder}></CreateFolder>
+                    <UploadDocument parent_id={parent_id} uploadFile={uploadFile} setUploadFile={setUploadFile}></UploadDocument>
                 </div>
                 <div className="menu">
                     <NavLink to="/" className="single-menu" id={navActive === 1 ? 'nav-active' : ''} onLoad={() => setNavActive(1)}>
