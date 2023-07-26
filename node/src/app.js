@@ -29,6 +29,16 @@ app.listen(PORT, () => {
 app.use('/v1', require('./v1'));
 // app.use('/v2', require('./v2'));
 // app.use('/v3', require('./v3'));
+// const re = new RegExp('v[0-9]+');
 
+// app.use(async (req, res, next) => {
+//     // const version = req.originalUrl.match(re)[0];
+//     // const file = `./${version}`;
 
+//     // Asynchronously load the file.
+//     const module = await require('./v1');
+
+//     // Call the next middleware.
+//     next(module);
+// });
 module.exports = app;

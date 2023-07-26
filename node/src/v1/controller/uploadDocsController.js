@@ -7,6 +7,8 @@ const { validateRequest } = require('../library/functions.js');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const unoconv = require('unoconv');
+const docxToPdf = require('docx-pdf');
 
 // const https = require('https');
 
@@ -234,6 +236,25 @@ const recentData = async (req, res) => {
     }
 }
 
+const previewDOCX = async (req, res) => {
+    const filePath = req.body.filePath;
+    try {
+        const docxFilePath = path.join('public', 'documents', filePath);
+        const pdfFilePath = path.join('public', 'pdfs', `${filePath.split('.')[0]}.pdf`);
+        docxToPdf(docxFilePath, pdfFilePath, (err, result) => {
+            if (err) {
+                console.error(err);
+                res.send({ error: true, message: 'Something went wrong' });
+            } else {
+                res.send({ error: false, pdfPath: pdfFilePath.split('\\').pop() });
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.send({ error: true, message: 'Something broken' });
+    }
+}
+
 const shareDocument = async (req, res) => {
     // Configure nodemailer transporter
     // const transporter = nodemailer.createTransport({
@@ -289,7 +310,8 @@ module.exports = {
     deletePermanent,
     deleteAllPermanent,
     restoreAll,
-    recentData
+    recentData,
+    previewDOCX
 };
 
 // cloudinary.config({

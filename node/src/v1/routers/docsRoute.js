@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { validateUploadDocs, uploadDocs, upload, getDocument, shareDocument, downloadFile, getBin, deleteFile, restoreFile, deletePermanent, deleteAllPermanent, restoreAll, recentData } = require('../controller/uploadDocsController.js');
+const { validateUploadDocs, uploadDocs, upload, getDocument, shareDocument, downloadFile, getBin, deleteFile, restoreFile, deletePermanent, deleteAllPermanent, restoreAll, recentData, previewDOCX } = require('../controller/uploadDocsController.js');
 
 router.post('/upload', upload.array('files'), validateUploadDocs, uploadDocs);
 router.post('/getdocs', getDocument);
+router.post('/preview/docx', previewDOCX)
 router.post('/share/gmail', shareDocument);
 router.post('/download', downloadFile);
 router.post('/delete', deleteFile);

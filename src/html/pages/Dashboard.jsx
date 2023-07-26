@@ -10,9 +10,12 @@ import folderImg from '../../images/folder.png';
 import textImg from '../../images/txt.png';
 import pdfImg from '../../images/pdff.png';
 import fileImg from '../../images/file.png';
+import PDFPreview from '../../images/MC.docx'
 import { deleteFile, downloadFile } from '../../Actions/docAction';
 import { deleteFolder } from '../../Actions/folderAction';
 import ApiCaller from '../../apiCaller/ApiCaller';
+// import { convert } from 'unoconv';
+import { saveAs } from 'file-saver'
 
 const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
@@ -20,6 +23,7 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
     const { parent_id } = useParams();
     setDataFromChild(parent_id);
 
+    const [preview, setPreview] = useState(null);
     const [openFileDropdown, setOpenFileDropdown] = useState(null);
     const [openFolderDropdown, setOpenFolderDropdown] = useState(null);
     const [docData, setDocData] = useState([]);
@@ -53,8 +57,45 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
             return fileImg
     }
 
-    const handlePreview = (fileUrl) => {
-        window.open(fileUrl, '_blank');
+    const handlePreview = async (fileUrl) => {
+        if ((fileUrl.split('.').pop()) === 'docx') {
+            const filePath = fileUrl.split('/').pop();
+            const body = {
+                filePath: filePath
+            }
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    _id: userInfo._id,
+                    accesstoken: userInfo.accesstoken
+                };
+                const { data } = await axios.post(`${ApiCaller.site}/doc/preview/docx`, body, { headers });
+                console.log(data);
+                if (data.error) {
+                    toast.error(data.message);
+                } else {
+                    window.open(`http://localhost:8000/public/pdfs/${data.pdfPath}`, '_blank');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            window.open(fileUrl, '_blank');
+        }
+
+        // const googleDocsViewerURL = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fileUrl);
+        // Open the Google Docs Viewer URL in a new tab
+        // window.open(googleDocsViewerURL, '_blank');
+
+
+        // Create the Microsoft Office Viewer URL
+        // const officeViewerURL = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(PDFPreview);
+        // window.open(officeViewerURL, '_blank');
+
+
+        // Create the Google Drive Viewer link
+        // const googleDriveViewerURL = 'https://drive.google.com/viewerng/viewer?embedded=true&url=' + encodeURIComponent(fileUrl);
+        // window.open(googleDriveViewerURL, '_blank');
     };
 
     const handleShare = () => {
@@ -146,6 +187,30 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
         setOpenFolderDropdown(null);
     }
 
+    const handleShareToGmail = (filename) => {
+        console.log(filename);
+        // var emailAddress = 'hp452444@gmail.com'; // Replace with the recipient's email address
+        // var emailSubject = 'Your Email Subject';
+        // var emailBody = 'Your Email Body';
+        // fetch(filename)
+        //     .then(response => response.blob())
+        //     .then(blob => {
+        //         const reader = new FileReader();
+        //         reader.onloadend = function () {
+        //             const fileData = reader.result.split(',')[1]; // Extract base64-encoded file data
+        //             console.log(fileData);
+        //             // Generate the mailto link with the attached file data
+        //             // var mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        //             // mailtoLink += `&attachment=${encodeURIComponent('data:application/octet-stream;base64,' + fileData)}`;
+
+        //             // // Redirect the user to the mailto link
+        //             // window.location.href = mailtoLink;
+        //             // console.log("redirected");
+        //         };
+        //         reader.readAsDataURL(blob);
+        //     });
+    }
+
     useEffect(() => {
         getFolders();
         getDocs();
@@ -235,7 +300,8 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
                                                     </div>
                                                     <div className="share-icons">
                                                         <div className="single-icon">
-                                                            <NavLink to="/share/gmail" state={{ email: userInfo.email, fname: val.filename }}><img src={gmailImg} className='icon' alt="" /></NavLink>
+                                                            {/* "/share/gmail" */}
+                                                            <NavLink to="#" onClick={() => handleShareToGmail(val.filename)} state={{ email: userInfo.email, fname: val.filename }}><img src={gmailImg} className='icon' alt="" /></NavLink>
                                                             <span>Gmail</span>
                                                         </div>
                                                     </div>
