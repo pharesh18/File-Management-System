@@ -7,7 +7,6 @@
 //     console.log(err)
 // });
 
-
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.DBSTR, { useNewUrlParser: true });

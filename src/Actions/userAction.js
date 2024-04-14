@@ -25,7 +25,8 @@ export const verifyOtp = async (body, navigate) => {
         if (!data.error) {
             toast.success(data.message);
             localStorage.setItem('userInfo', JSON.stringify(data.data));
-            navigate('/');
+            // navigate('/');
+            window.location.href = '/';
         } else {
             toast.error(data.message);
         }
@@ -42,9 +43,10 @@ export const login = async (body, navigate) => {
         if (!data.error) {
             console.log(data);
             toast.success(data.message);
+            console.log(data.data);
             localStorage.setItem('userInfo', JSON.stringify(data.data));
-            navigate('/');
-            // window.location.href = '/';
+            // navigate('/');
+            window.location.href = '/';
         } else {
             console.log(data);
             toast.error(data.message);

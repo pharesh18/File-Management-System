@@ -16,7 +16,12 @@ const validateSchema = (req, res, next) => {
         accesstoken: joi.string().required()
     });
 
-    if (!validateRequest(req.headers, res, next, schema)) {
+    const headers = {
+        _id: req.headers._id,
+        accesstoken: req.headers.accesstoken
+    }
+
+    if (!validateRequest(headers, res, next, schema)) {
         return false;
     }
 }

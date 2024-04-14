@@ -47,6 +47,7 @@ const Register = () => {
         data.append('email', email);
         data.append('password', password);
         data.append('profile', profile);
+        data.append('is_admin', true);
 
         register(data, setIsRegistered);
     }

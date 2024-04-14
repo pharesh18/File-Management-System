@@ -1,8 +1,6 @@
 const { Schema, model } = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
-const { boolean } = require('joi');
-// const { deleteUsers } = require('./functions');
 
 const schema = {};
 
@@ -41,6 +39,10 @@ schema.users = Schema({
         type: Date,
         required: true,
     },
+    is_admin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 schema.documents = Schema({

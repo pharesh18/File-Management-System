@@ -62,7 +62,7 @@ const Otp = () => {
                                 })}
                             </div>
 
-                            <p className="resend">Didn't recieved otp ?  <span className="re"> Resend</span></p>
+                            <p className="resend" style={{ visibility: "hidden" }}>Didn't recieved otp ?  <span className="re"> Resend</span></p>
                             <div className="otp-btns">
                                 <button className="clear-button" onClick={handleClear}>Clear</button>
                                 <button className="verify-button" type="submit">verify</button>

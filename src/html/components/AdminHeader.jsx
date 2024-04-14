@@ -16,19 +16,20 @@ const AdminHeader = ({ setSearchInput }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('userInfo');
-        navigate('/login');
+        // navigate('/login');
+        window.location.href = '/login';
     }
 
     return (
         <>
-            <div className="header" style={{ justifyContent: "right" }}>
-                {/* <div className="searchbar">
+            <div className="header">
+                <div style={{ visibility: "hidden" }} className="searchbar">
                     <div className="search">
                         <SearchIcon className="search-icon"></SearchIcon>
                         <input type="text" className='search-input' placeholder='Search file' onChange={(e) => setSearchInput(e.target.value)} />
                     </div>
                     <input type="button" className='search-button' value="Browse" />
-                </div> */}
+                </div>
 
                 <div className="profile">
                     <div className="profile-dropdown" onClick={toggleDropdown}>

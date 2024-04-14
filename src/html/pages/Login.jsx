@@ -31,7 +31,7 @@ const Login = () => {
                             </div>
 
                             <div className="links" style={{ marginBottom: "20px" }}>
-                                <div className="regist-col"><label className="regiter"><NavLink to="/forgetpassword" style={{ fontSize: "85%", textDecoration: "none" }}>Forget Password ?</NavLink></label> </div>
+                                <div className="regist-col"><label className="regiter"><NavLink to="/forgetpassword" style={{ fontSize: "85%", textDecoration: "none", visibility: "hidden" }}>Forget Password ?</NavLink></label> </div>
                                 <div className="regist-col"><label className="regiter"><Link to="/register" style={{ fontSize: "85%", textDecoration: "none" }}>New On This Site ?</Link></label> </div>
                             </div>
                             <button className="regist-button" type="submit">

@@ -25,7 +25,7 @@ const encryptPassword = async (password) => {
 }
 
 const generateToken = (_id) => {
-    console.log(sign({ _id }, process.env.JWTKEY));
+    // console.log(sign({ _id }, process.env.JWTKEY));
     return sign({ _id }, process.env.JWTKEY);
 }
 

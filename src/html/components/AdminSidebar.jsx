@@ -8,6 +8,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import UploadDocument from './UploadDocument';
 import CreateFolder from './CreateFolder';
+import logo from '../../images/logo2.png';
 
 const AdminSidebar = ({ parent_id }) => {
     const { pathname } = useLocation();
@@ -30,7 +31,7 @@ const AdminSidebar = ({ parent_id }) => {
         <>
             <div className="sidebar">
                 <div className="logo">
-                    <h1>ADMIN</h1>
+                    <img src={logo} style={{ width: "160px", marginTop: "20px" }} alt="" />
                 </div>
                 <div className="uploads">
                     {/* <CreateFolder parent_id={parent_id}></CreateFolder> */}
@@ -41,11 +42,11 @@ const AdminSidebar = ({ parent_id }) => {
                         <DashboardIcon className='menu-icon' />
                         <span className="route"> My Dashboard</span>
                     </NavLink>
-
+                    {/* 
                     <NavLink to="/recent" className="single-menu" id={navActive === 2 ? 'nav-active' : ''} onLoad={() => setNavActive(2)}>
                         <AccessTimeIcon className='menu-icon' />
                         <span className="route">All users</span>
-                    </NavLink>
+                    </NavLink> */}
 
                     {/* <NavLink to="/starred" className="single-menu" id={navActive === 3 ? 'nav-active' : ''} onLoad={() => setNavActive(3)}>
                         <StarBorderIcon className='menu-icon' />

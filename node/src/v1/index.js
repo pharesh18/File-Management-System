@@ -17,7 +17,7 @@ const { validateSchema, checkAccess } = require('./library/controlAccess.js');
 const userRoute = require('./routers/userRoute.js');
 const docsRoute = require('./routers/docsRoute.js');
 const folderRoute = require('./routers/folderRoute.js');
-const { documents, folders } = require('./library/schema.js');
+const { documents, folders, users } = require('./library/schema.js');
 
 // app.use(cors());
 // app.use(express.json());
@@ -40,7 +40,9 @@ app.use('/api/doc', docsRoute);
 app.use('/api/folder', folderRoute);
 
 // const deleteAll = async () => {
-//     await documents.deleteMany();
+    // await documents.deleteMany();
+    // await users.deleteMany();
+    // await folders.deleteMany();
 // }
 
 // deleteAll();

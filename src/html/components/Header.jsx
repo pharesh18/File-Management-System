@@ -16,8 +16,8 @@ const Header = ({ setSearchInput }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('userInfo');
-        navigate('/login');
-        // window.location.href = '/';
+        // navigate('/login');
+        window.location.href = '/login';
     }
 
     // const handleShareDocument = () => {
@@ -41,7 +41,7 @@ const Header = ({ setSearchInput }) => {
                         <SearchIcon className="search-icon"></SearchIcon>
                         <input type="text" className='search-input' placeholder='Search file' onChange={(e) => setSearchInput(e.target.value)} />
                     </div>
-                    <input type="button" className='search-button' value="Browse" />
+                    {/* <input type="button" className='search-button' value="Browse" /> */}
                 </div>
 
                 <div className="profile">

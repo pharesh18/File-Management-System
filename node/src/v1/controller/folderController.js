@@ -28,7 +28,7 @@ const createFolder = async (req, res) => {
         } else {
             await folder.save().then(async (result) => {
                 if (result) {
-                    res.send({ error: false, message: 'success' });
+                    res.send({ error: false, message: 'folder created successfully!' });
                 } else {
                     res.send({ error: true, message: 'something_went_wrong' });
                 }

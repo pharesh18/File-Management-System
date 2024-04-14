@@ -42,7 +42,7 @@ const ChangePassword = () => {
                             {npassword !== cpassword ? <span className="password-caution"> password doesn't matched</span> : null}
                         </div>
 
-                        <div className="regist-col"><label className="regiter"><NavLink to="/forgetpassword" style={{ fontSize: "85%", textDecoration: "none" }}>Forget Password?</NavLink></label> </div>
+                        <div className="regist-col"><label className="regiter"><NavLink to="/forgetpassword" style={{ fontSize: "85%", textDecoration: "none", visibility: "hidden" }}>Forget Password?</NavLink></label> </div>
 
                         <div className="buttons">
                             <button type="submit" className="regist-button" disabled={npassword === cpassword ? false : true}>

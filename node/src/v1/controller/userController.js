@@ -65,6 +65,7 @@ const registerUser = async (req, res) => {
         otp,
         is_verified: false,
         created_date: new Date(),
+        is_admin: req.body.is_admin ? req.body.is_admin : false,
     }
 
     if (req.file) {
@@ -86,20 +87,8 @@ const registerUser = async (req, res) => {
         message: 'success',
     };
 
-    // if (req.files?.profile) {
-    //     await cloudinary.uploader.upload(req.files?.profile.tempFilePath, (error, result) => {
-    //         if (result) {
-    //             data.profile = result.secure_url;
-    //             data.public_id = result.public_id;
-    //         }
-    //     }).catch(error => {
-    //         console.log(error);
-    //         res.send({ error: true, message: "something_broken" });
-    //         return;
-    //     });
-    // }
-
     let user = new users(data);
+    console.log(user);
     return await user.save().then(async () => {
         let text = `Dear ${data.fname} ${data.lname}, Here is your OTP to register on File System is ${otp}`;
         let result = await sendEmail(data.email, "OTP from File System", text);
@@ -311,6 +300,14 @@ const uploadProfile = async (req, res) => {
     });
 }
 
+const getAllUsers = async (req, res) => {
+    return await users.find().then((data) => {
+        res.send({ error: false, message: 'success', data: data });
+    }).catch(err => {
+        res.send({ error: true, message: 'something_broken' });
+    });
+}
+
 module.exports = {
     upload,
     validateUserSchema,
@@ -325,4 +322,5 @@ module.exports = {
     changePassword,
     validateUploadProfile,
     uploadProfile,
+    getAllUsers
 };

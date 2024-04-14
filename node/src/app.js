@@ -20,25 +20,8 @@ app.listen(PORT, () => {
     return console.log(`Server running at PORT : ${PORT}`);
 });
 
-// const versions = ['v1', 'v2', 'v3', 'v4', 'v5']
-// const returnVersion = (req, res) => {
-//     let v = versions[(versions.indexOf(req.originalUrl.split('/')[1]))];
-//     console.log('/' + v);
-// }
-
 app.use('/v1', require('./v1'));
 // app.use('/v2', require('./v2'));
 // app.use('/v3', require('./v3'));
-// const re = new RegExp('v[0-9]+');
 
-// app.use(async (req, res, next) => {
-//     // const version = req.originalUrl.match(re)[0];
-//     // const file = `./${version}`;
-
-//     // Asynchronously load the file.
-//     const module = await require('./v1');
-
-//     // Call the next middleware.
-//     next(module);
-// });
 module.exports = app;

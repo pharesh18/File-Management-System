@@ -159,6 +159,10 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
                 toast.error(data.message);
             } else {
                 setFolders(data.data);
+                var stringifiedData = JSON.stringify(data.data);
+                console.log(stringifiedData);
+                var parsedData = JSON.parse(stringifiedData);
+                console.log(parsedData)
             }
         } catch (err) {
             console.log(err);
@@ -188,27 +192,20 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
     }
 
     const handleShareToGmail = (filename) => {
-        console.log(filename);
-        // var emailAddress = 'hp452444@gmail.com'; // Replace with the recipient's email address
-        // var emailSubject = 'Your Email Subject';
-        // var emailBody = 'Your Email Body';
-        // fetch(filename)
-        //     .then(response => response.blob())
-        //     .then(blob => {
-        //         const reader = new FileReader();
-        //         reader.onloadend = function () {
-        //             const fileData = reader.result.split(',')[1]; // Extract base64-encoded file data
-        //             console.log(fileData);
-        //             // Generate the mailto link with the attached file data
-        //             // var mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        //             // mailtoLink += `&attachment=${encodeURIComponent('data:application/octet-stream;base64,' + fileData)}`;
+        filename = filename.replaceAll(" ", "%20");
+        var link = `http://localhost:8000/public/documents/${filename}`;
+        // http://localhost:8000/public/documents/1699181972945_IMG_20231104_223353%20(1).jpg
+        var subject = 'Sharing File'; // Replace with the desired subject
+        // var link = 'https://www.example.com';
+        var body = `Here is the link to access the file : <a href=${link}></a>.`; // Replace with the desired body content
+        var sender = userInfo.email; // Replace with the sender's email address
 
-        //             // // Redirect the user to the mailto link
-        //             // window.location.href = mailtoLink;
-        //             // console.log("redirected");
-        //         };
-        //         reader.readAsDataURL(blob);
-        //     });
+        var mailtoString = 'https://mail.google.com/mail/?view=cm&fs=1' +
+            '&su=' + subject +
+            '&body=' + encodeURIComponent(body) +
+            '&from=' + sender;
+
+        window.location.href = mailtoString;
     }
 
     useEffect(() => {
@@ -222,10 +219,6 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
                 {folders.length > 0 ?
                     <div className="dashboard-title">
                         <h3>Folders</h3>
-                        {/* <div className="create-upload">
-                        <CreateFolder parent_id={parent_id}></CreateFolder>
-                        <UploadDocument parent_id={parent_id}></UploadDocument>
-                    </div> */}
                     </div> : null
                 }
 
@@ -301,7 +294,7 @@ const Dashboard = ({ searchInput, uploadFile, uploadFolder, setDataFromChild }) 
                                                     <div className="share-icons">
                                                         <div className="single-icon">
                                                             {/* "/share/gmail" */}
-                                                            <NavLink to="#" onClick={() => handleShareToGmail(val.filename)} state={{ email: userInfo.email, fname: val.filename }}><img src={gmailImg} className='icon' alt="" /></NavLink>
+                                                            <NavLink to="#" onClick={() => handleShareToGmail(val.filename)}><img src={gmailImg} className='icon' alt="" /></NavLink>
                                                             <span>Gmail</span>
                                                         </div>
                                                     </div>

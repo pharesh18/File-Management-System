@@ -315,55 +315,55 @@ module.exports = {
 };
 
 // cloudinary.config({
-    //     cloud_name: process.env.CLOUDINARY_NAME,
-    //     api_key: process.env.CLOUDINARY_API_KEY,
-    //     api_secret: process.env.CLOUDINARY_API_SECRET,
-    //     secure: true
+//     cloud_name: process.env.CLOUDINARY_NAME,
+//     api_key: process.env.CLOUDINARY_API_KEY,
+//     api_secret: process.env.CLOUDINARY_API_SECRET,
+//     secure: true
 
-    // });
+// });
 
-    // console.log(req.file);
-    // res.status(400).send({ error: false, message: 'success' });
-    // await cloudinary.uploader.upload(req.file.path, { resource_type: 'auto' }, async (error, result) => {
-    //     if (result) {
-    //         const data = {
-    //             user_id: req.headers._id,
-    //             doc: result.secure_url,
-    //             public_id: result.public_id,
-    //             created_date: new Date()
-    //         };
+// console.log(req.file);
+// res.status(400).send({ error: false, message: 'success' });
+// await cloudinary.uploader.upload(req.file.path, { resource_type: 'auto' }, async (error, result) => {
+//     if (result) {
+//         const data = {
+//             user_id: req.headers._id,
+//             doc: result.secure_url,
+//             public_id: result.public_id,
+//             created_date: new Date()
+//         };
 
-    //         const document = new documents(data);
-    //         await document.save();
-    //         console.log(document);
-    //         return res.status(200).send({ error: false, message: 'uploaded successfully' });
-    //     } else {
-    //         return res.status(400).send({ error: true, message: 'something_broken' })
-    //     }
-    // }).catch(error => {
-    //     console.log(error);
-    //     return res.status(401).send({ error: true, message: 'something_broken' });
-    // });
-    // req.files.files.forEach(async (file) => {
-    //     console.log(file);
-    //     await cloudinary.uploader.upload(file.tempFilePath, async (error, result) => {
-    //         if (result) {
-    //             const data = {
-    //                 user_id: req.headers._id,
-    //                 doc: result.secure_url,
-    //                 public_id: result.public_id,
-    //                 created_at: Date.now()
-    //             };
+//         const document = new documents(data);
+//         await document.save();
+//         console.log(document);
+//         return res.status(200).send({ error: false, message: 'uploaded successfully' });
+//     } else {
+//         return res.status(400).send({ error: true, message: 'something_broken' })
+//     }
+// }).catch(error => {
+//     console.log(error);
+//     return res.status(401).send({ error: true, message: 'something_broken' });
+// });
+// req.files.files.forEach(async (file) => {
+//     console.log(file);
+//     await cloudinary.uploader.upload(file.tempFilePath, async (error, result) => {
+//         if (result) {
+//             const data = {
+//                 user_id: req.headers._id,
+//                 doc: result.secure_url,
+//                 public_id: result.public_id,
+//                 created_at: Date.now()
+//             };
 
-    //             const document = new documents(data);
-    //             await document.save();
-    //             console.log(document);
-    //         }
-    //         if (error) {
-    //             return res.status(400).send({ error: true, message: 'something_broken' })
-    //         }
-    //     }).catch(error => {
-    //         console.log(error);
-    //         return res.status(400).send({ error: true, message: 'something_broken' });
-    //     })
-    // });
+//             const document = new documents(data);
+//             await document.save();
+//             console.log(document);
+//         }
+//         if (error) {
+//             return res.status(400).send({ error: true, message: 'something_broken' })
+//         }
+//     }).catch(error => {
+//         console.log(error);
+//         return res.status(400).send({ error: true, message: 'something_broken' });
+//     })
+// });

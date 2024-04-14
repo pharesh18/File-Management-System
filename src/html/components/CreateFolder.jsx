@@ -52,7 +52,7 @@ const CreateFolder = ({ parent_id, uploadFolder, setUploadFolder }) => {
                         </div>
                         <div className="create-buttons">
                             <button className='regist-button' type='submit'>Create</button>
-                            <button className='regist-button' onClick={handleClose}>Cancel</button>
+                            <button className='regist-button' type='button' onClick={handleClose}>Cancel</button>
                         </div>
                     </form>
                 </div>
